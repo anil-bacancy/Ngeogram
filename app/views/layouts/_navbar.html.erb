@@ -8,11 +8,19 @@
       </button>
       <div class="navbar-brand">
         <%= link_to "Geogram", root_path %>
+
       </div>
     </div>
     <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
+          <li>
+            <%= current_user.user_name.capitalize %>
+            <%#= render 'notifications/notification_dropdown' %>
+          </li>
+          <li>
+            <%= link_to "Browse Posts", browse_posts_path %>
+          </li>
           <li>
             <%= link_to "New Post", new_post_path %>
           </li>
@@ -24,7 +32,7 @@
             <%= link_to "Login", new_user_session_path %>
           </li>
           <li>
-            <%= link_to "Register", new_user_registration_path            %>
+            <%= link_to "Register", new_user_registration_path %>
           </li>
         <% end %>
       </ul>

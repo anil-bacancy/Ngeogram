@@ -4,7 +4,9 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all.order('created_at DESC').page params[:page]
+    # @posts = Post.all.order('created_at DESC').page params[:page]
+    posts = Post.of_followed_users(current_user.following).order('created_at DESC')
+    @posts = posts +  current_user.posts
   end
   
   def new
@@ -45,6 +47,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to root_path
+  end
+
+  def browse
+    @posts = Post.all.order('created_at DESC').page params[:page]
   end
 
 

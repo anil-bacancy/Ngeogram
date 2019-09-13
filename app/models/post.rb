@@ -9,4 +9,10 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
 
+  scope :of_followed_users, -> (following_users) { where user_id: following_users }
+
+  def self.visible_to_users user
+  	user.of_followed_users(user.following) << user
+  end
+
 end

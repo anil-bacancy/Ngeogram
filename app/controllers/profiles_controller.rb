@@ -4,7 +4,8 @@ class ProfilesController < ApplicationController
   before_action :owned_profile, only: [:edit, :update]
   def show
     @user = User.find_by(user_name: params[:user_name])
-    @posts = User.find_by(user_name: params[:user_name]).posts.order('created_at DESC')
+    @posts = Post.of_followed_users(current_user.following).order('created_at DESC').page params[:page]
+    # @posts = User.find_by(user_name: params[:user_name]).posts.order('created_at DESC')
   end
 
   def edit
@@ -35,7 +36,7 @@ class ProfilesController < ApplicationController
 
   def set_user
     @user = User.find_by(user_name: params[:user_name])
-   end
+  end
 
   def profile_params
     params.require(:user).permit(:avatar, :bio)

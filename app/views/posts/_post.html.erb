@@ -5,9 +5,6 @@
       <div class="user-name">
         <%= link_to post.user.user_name, profile_path(post.user.user_name) %>
       </div>
-      <!-- <div class="user-name">
-        <%#= post.user.user_name %>
-      </div> -->
     </div>
     <div class="time-ago">
       <%= time_ago_in_words post.created_at %>
