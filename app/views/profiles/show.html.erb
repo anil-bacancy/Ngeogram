@@ -13,9 +13,13 @@
         <span>
           <% if @user == current_user %>
             <%= link_to 'Edit Profile', edit_profile_path(@user.user_name), class: 'btn edit-button' %>
-          <% else %>  
-            <%= link_to 'Follow', class: 'btn edit-button' %>
-            <%= link_to 'UnFollow', class: 'btn edit-button' %>
+          <% else %>
+            <% if user_signed_in? && current_user.following?(@user) %>
+              <% binding.pry%>
+              <%= link_to 'UnFollow', relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)), method: :delete, class: 'btn edit-button btn-primary' %>
+            <% else %>   
+              <%= link_to 'Follow', relationships_path(user_id: @user.id), class: 'btn edit-button btn-primary' %>
+            <% end %>  
           <% end %>
         </span>
       </div>
