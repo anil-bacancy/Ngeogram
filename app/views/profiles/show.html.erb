@@ -29,6 +29,12 @@
         <p>
           <%= pluralize @user.posts.count, 'post' %>
         </p>
+        <p>
+          <div id="element1" class="btn btn-default show-modal1">Following: <%= current_user.following.count %></div>
+        </p>
+        <p>
+          <div id="element2" class="btn btn-default show-modal2">Follower: <%= current_user.followers.count %></div>
+        </p>
       </div>
     </div>
   </div>
@@ -36,3 +42,71 @@
 <% @posts.each do |post| %>
   <%= render 'posts/post', post: post %>
 <% end %>
+
+
+<div id="testmodal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Following Profiles</h4>
+      </div>
+      <div class="modal-body">
+        Following:
+        <% current_user.following.each do |following| %>
+          <%= following.user_name %></br>
+        <% end %>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div id="testmodal1" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Followers Profiles</h4>
+      </div>
+      <div class="modal-body">
+        Followers:
+        <% current_user.followers.each do |followers| %>
+          <%= followers.user_name %>
+        <% end %>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var show_btn1=$('.show-modal1');
+    var show_btn2=$('.show-modal2');
+    //$("#testmodal").modal('show');
+    
+    show_btn1.click(function(){
+      $("#testmodal").modal('show');
+    })
+    show_btn2.click(function(){
+      $("#testmodal1").modal('show');
+    })
+  });
+
+  $(function() {
+    $('#element1, #element2').on('click', function( e ) {
+      Custombox.open({
+        target: '#testmodal1',
+        effect: 'fadein'
+      });
+      e.preventDefault();
+    });
+  });
+</script>

@@ -1,4 +1,16 @@
-<h1 align="center"> Geogram </h1>
+<h1 align="center"> Geogram of <%= current_user.user_name %>( Following: <%= current_user.following.count %>, Follower: <%= current_user.followers.count %>) </h1>
+<div align="left">
+  Followers:
+  <% current_user.followers.each do |followers| %>
+    <%= followers.user_name %>
+  <% end %>
+</div>
+<div align="right">
+  Following:
+  <% current_user.following.each do |following| %>
+    <%= following.user_name %>
+  <% end %>
+</div>
 <% @posts.each do |post| %>
   <%= render 'post', post: post %>
 <% end %>

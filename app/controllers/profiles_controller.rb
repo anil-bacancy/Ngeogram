@@ -2,6 +2,15 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
   # before_action :owned_profile, only: [:edit, :update]
+
+  def index
+    # @search = User.all.ransack(params[:q])
+    # @profiles = @search.result
+    # query = User.all
+    # @profiles = User.find_by("user_name LIKE :query", query: "%#{query}%")
+    @profiles = User.all
+  end
+
   def show
     @user = User.find_by(user_name: params[:user_name])
     @posts = User.find_by(user_name: params[:user_name]).posts.order('created_at DESC')

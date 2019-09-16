@@ -1,0 +1,6 @@
+<h1 align="center"> All Profiles </h1>
+<div align="center">
+  <% @profiles.each do |profile| %>
+    <%= link_to profile.user_name, profile_path(profile.user_name), class: "align center btn btn-primary" %>
+  <% end %>
+</div>
