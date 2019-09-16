@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   def index
     # @posts = Post.all.order('created_at DESC').page params[:page]
     posts = current_user.posts.order('created_at DESC')
-    @posts = Post.of_followed_users(current_user.following).order('created_at DESC').page params[:page]
+    @posts = @posts = Post.of_followed_users(current_user.following.pluck(:id).push(current_user.id)).order('created_at DESC').page params[:page]
   end
   
   def new
